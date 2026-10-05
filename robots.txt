@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://milk92229.github.io/la-maison-des-pecheurs/sitemap.xml
