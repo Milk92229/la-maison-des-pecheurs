@@ -1,6 +1,15 @@
 (()=>{
   if(!document.querySelector('link[rel="manifest"]')){const m=document.createElement('link');m.rel='manifest';m.href='manifest.webmanifest';document.head.appendChild(m);}
   if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+  const appStyle=document.createElement('style');
+  appStyle.textContent=`.lmpInstall{display:none;position:fixed;right:18px;bottom:20px;z-index:90;border:0;border-radius:999px;padding:13px 17px;background:#ff8a00;color:#fff;font-weight:900;box-shadow:0 8px 24px #001b2b45}.lmpMobileBar{display:none}@media(max-width:760px){body{padding-bottom:70px}.lmpInstall{bottom:82px}.lmpMobileBar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:89;background:#fff;border-top:1px solid #dce6ed;box-shadow:0 -5px 18px #001b2b18;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}.lmpMobileBar a,.lmpMobileBar button{border:0;background:transparent;color:#063e70;text-align:center;font-size:11px;font-weight:800;padding:4px 2px}.lmpMobileBar span{display:block;font-size:21px;line-height:24px}.nav{top:0}.hero{min-height:390px}.hero h1{font-size:clamp(34px,11vw,50px)}.hero p{font-size:16px}.card img{height:190px}}`;
+  document.head.appendChild(appStyle);
+  const install=document.createElement('button');install.className='lmpInstall';install.type='button';install.textContent='⬇ Installer l’application';install.setAttribute('aria-label','Installer La Maison des Pêcheurs');document.body.appendChild(install);
+  let deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;install.style.display='block';});
+  install.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;install.style.display='none';});
+  window.addEventListener('appinstalled',()=>{install.style.display='none';deferredPrompt=null;});
+  const bar=document.createElement('div');bar.className='lmpMobileBar';bar.innerHTML=`<a href="#home"><span>⌂</span>Accueil</a><a href="#catalogue"><span>▦</span>Catalogue</a><button type="button" onclick="openCart()"><span>🛒</span>Panier</button><a href="https://wa.me/33649118740" target="_blank" rel="noopener"><span>◉</span>WhatsApp</a>`;document.body.appendChild(bar);
   const spot=document.querySelector('.advisual');
   const copy=document.querySelector('.adcopy');
   if(!spot||!copy)return;
