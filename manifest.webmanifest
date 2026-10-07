@@ -1,0 +1,16 @@
+{
+  "name": "La Maison des Pêcheurs",
+  "short_name": "Maison Pêcheurs",
+  "description": "Catalogue et commandes de matériel de pêche à Guet-Ndar, Saint-Louis.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fa",
+  "theme_color": "#064d86",
+  "lang": "fr",
+  "categories": ["shopping", "business"],
+  "icons": [
+    {"src":"logo-la-maison-des-pecheurs.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"logo-la-maison-des-pecheurs.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}
